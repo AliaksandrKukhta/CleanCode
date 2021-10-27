@@ -6,6 +6,7 @@ import aircraft.PassengerPlane;
 import aircraft.Plane;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 // version: 1.1
 // made by Vitali Shulha
@@ -59,26 +60,13 @@ public class Airport {
     }
 
     public List<MilitaryPlane> getBomberMilitaryPlanes() {
-        List<MilitaryPlane> bomberMilitaryPlanes = new ArrayList<>();
         List<MilitaryPlane> militaryPlanes = getMilitaryPlanes();
-        for (int i = 0; i < militaryPlanes.size(); i++) {
-            MilitaryPlane plane = militaryPlanes.get(i);
-            if (plane.getType() == MilitaryType.BOMBER) {
-                bomberMilitaryPlanes.add(plane);
-            }
-        }
-        return bomberMilitaryPlanes;
-
+        return militaryPlanes.stream().filter(militaryPlane -> militaryPlane.getType()==MilitaryType.BOMBER).collect(Collectors.toList());
     }
 
     public List<ExperimentalPlane> getExperimentalPlanes() {
         List<ExperimentalPlane> experimentalPlanes = new ArrayList<>();
-        for (Plane plane : planes) {
-            if (plane instanceof ExperimentalPlane) {
-                experimentalPlanes.add((ExperimentalPlane) plane);
-            }
-        }
-        return experimentalPlanes;
+        return experimentalPlanes.stream().filter(plane -> plane instanceof ExperimentalPlane).collect(Collectors.toList());
     }
 
     public Airport sortByMaxDistance() {
@@ -95,12 +83,6 @@ public class Airport {
         return planes;
     }
 
-    @Override
-    public String toString() {
-        return "Airport{" +
-                "Planes=" + planes.toString() +
-                '}';
-    }
 
     public Airport(List<Plane> planes) {
         this.planes = planes;
@@ -108,13 +90,26 @@ public class Airport {
 
     public boolean hasClassificationLevelOfExperimentalPlane() {
         List<ExperimentalPlane> experimentalPlanes = getExperimentalPlanes();
-        boolean hasUnclassifiedPlanes = false;
-        for (ExperimentalPlane experimentalPlane : experimentalPlanes) {
-            if (experimentalPlane.getClassificationLevel() == ClassificationLevel.UNCLASSIFIED) {
-                hasUnclassifiedPlanes = true;
-                break;
-            }
-        }
-        return hasUnclassifiedPlanes;
+        return experimentalPlanes.stream().allMatch(experimentalPlane -> experimentalPlane.getClassificationLevel() == ClassificationLevel.UNCLASSIFIED);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Airport airport = (Airport) o;
+        return Objects.equals(planes, airport.planes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(planes);
+    }
+
+    @Override
+    public String toString() {
+        return "Airport{" +
+                "Planes=" + planes.toString() +
+                '}';
     }
 }

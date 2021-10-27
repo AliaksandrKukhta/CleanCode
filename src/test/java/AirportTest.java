@@ -70,7 +70,7 @@ public class AirportTest {
 
     public boolean isNextPlaneMaxLoadCapacityIsHigherThanCurrent(){
         Airport airport = new Airport(planes);
-        List<? extends Plane> planesSortedByMaxLoadCapacity = airport.getPlanes();
+        List<Plane> planesSortedByMaxLoadCapacity = airport.getPlanes();
 
         boolean nextPlaneMaxLoadCapacityIsHigherThanCurrent = true;
         for (int i = 0; i < planesSortedByMaxLoadCapacity.size() - 1; i++) {
