@@ -11,12 +11,9 @@ public class PassengerPlane extends Plane {
         this.passengersCapacity = passengersCapacity;
     }
 
-
     public int getPassengersCapacity() {
         return passengersCapacity;
     }
-
-
 
     @Override
     public boolean equals(Object o) {
