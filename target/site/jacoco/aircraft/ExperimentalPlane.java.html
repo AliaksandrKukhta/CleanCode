@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExperimentalPlane.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">aircompany</a> &gt; <a href="index.source.html" class="el_package">aircraft</a> &gt; <span class="el_source">ExperimentalPlane.java</span></div><h1>ExperimentalPlane.java</h1><pre class="source lang-java linenums">package aircraft;
+
+import models.ClassificationLevel;
+import models.ExperimentalTypes;
+
+import java.util.Objects;
+
+public class ExperimentalPlane extends Plane {
+
+    private final ExperimentalTypes type;
+    private ClassificationLevel classificationLevel;
+
+    public ExperimentalPlane(String model, int maxSpeed, int maxFlightDistance, int maxLoadCapacity,
+                             ExperimentalTypes type, ClassificationLevel classificationLevel) {
+<span class="fc" id="L15">        super(model, maxSpeed, maxFlightDistance, maxLoadCapacity);</span>
+<span class="fc" id="L16">        this.type = type;</span>
+<span class="fc" id="L17">        this.classificationLevel = classificationLevel;</span>
+<span class="fc" id="L18">    }</span>
+
+    public ClassificationLevel getClassificationLevel() {
+<span class="nc" id="L21">        return this.classificationLevel;</span>
+    }
+
+    @Override
+    public boolean equals(Object o) {
+<span class="nc bnc" id="L26" title="All 2 branches missed.">        if (this == o) return true;</span>
+<span class="nc bnc" id="L27" title="All 2 branches missed.">        if (!(o instanceof PassengerPlane)) return false;</span>
+<span class="nc bnc" id="L28" title="All 2 branches missed.">        if (!super.equals(o)) return false;</span>
+<span class="nc" id="L29">        ExperimentalPlane experimentalPlane = (ExperimentalPlane) o;</span>
+<span class="nc bnc" id="L30" title="All 4 branches missed.">        return classificationLevel == experimentalPlane.classificationLevel &amp;&amp; type == experimentalPlane.type;</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L35">        return Objects.hash(super.hashCode(), type, classificationLevel);</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L40">        return &quot;experimentalPlane{&quot; +</span>
+                &quot;model='&quot; + &quot;Experimental model&quot; + '\'' +
+                '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

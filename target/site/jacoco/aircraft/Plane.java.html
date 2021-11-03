@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Plane.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">aircompany</a> &gt; <a href="index.source.html" class="el_package">aircraft</a> &gt; <span class="el_source">Plane.java</span></div><h1>Plane.java</h1><pre class="source lang-java linenums">package aircraft;
+
+import java.util.Objects;
+
+public class Plane {
+    private String model;
+    private int maxSpeed;
+    private int maxFlightDistance;
+    private int maxLoadCapacity;
+
+<span class="fc" id="L11">    public Plane(String model, int maxSpeed, int maxFlightDistance, int maxLoadCapacity) {</span>
+<span class="fc" id="L12">        this.model = model;</span>
+<span class="fc" id="L13">        this.maxSpeed = maxSpeed;</span>
+<span class="fc" id="L14">        this.maxFlightDistance = maxFlightDistance;</span>
+<span class="fc" id="L15">        this.maxLoadCapacity = maxLoadCapacity;</span>
+<span class="fc" id="L16">    }</span>
+
+    public int getMaxSpeed() {
+<span class="nc" id="L19">        return maxSpeed;</span>
+    }
+
+    public int getMaxFlightDistance() {
+<span class="nc" id="L23">        return maxFlightDistance;</span>
+    }
+
+    public int getMaxLoadCapacity() {
+<span class="nc" id="L27">        return maxLoadCapacity;</span>
+    }
+
+    @Override
+    public boolean equals(Object o) {
+<span class="nc bnc" id="L32" title="All 2 branches missed.">        if (this == o) return true;</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">        if (!(o instanceof Plane)) return false;</span>
+<span class="nc" id="L34">        Plane plane = (Plane) o;</span>
+<span class="nc bnc" id="L35" title="All 6 branches missed.">        return maxSpeed == plane.maxSpeed &amp;&amp;</span>
+                maxFlightDistance == plane.maxFlightDistance &amp;&amp;
+                maxLoadCapacity == plane.maxLoadCapacity &amp;&amp;
+<span class="nc bnc" id="L38" title="All 2 branches missed.">                Objects.equals(model, plane.model);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L43">        return Objects.hash(model, maxSpeed, maxFlightDistance, maxLoadCapacity);</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L48">        return &quot;Plane{&quot; + &quot;model='&quot; + model + '\'' + &quot;, maxSpeed=&quot; + maxSpeed +</span>
+                &quot;, maxFlightDistance=&quot; + maxFlightDistance + &quot;, maxLoadCapacity=&quot; + maxLoadCapacity + '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

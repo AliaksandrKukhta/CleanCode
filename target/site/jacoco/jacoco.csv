@@ -1,0 +1,10 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+aircompany,default,Runner,207,0,0,0,13,0,3,0,3,0
+aircompany,default,Airport,126,68,12,0,14,13,17,6,11,6
+aircompany,models,ClassificationLevel,0,34,0,0,0,2,0,1,0,1
+aircompany,models,MilitaryType,0,34,0,0,0,2,0,1,0,1
+aircompany,models,ExperimentalTypes,0,24,0,0,0,2,0,1,0,1
+aircompany,aircraft,ExperimentalPlane,58,13,10,0,8,4,9,1,4,1
+aircompany,aircraft,MilitaryPlane,62,10,8,0,8,3,8,1,4,1
+aircompany,aircraft,PassengerPlane,63,10,8,0,8,3,8,1,4,1
+aircompany,aircraft,Plane,103,15,12,0,10,6,12,1,6,1
