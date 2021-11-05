@@ -1,5 +1,6 @@
 import aircraft.ExperimentalPlane;
 import models.ClassificationLevel;
+import models.ExperimentalTypes;
 import models.MilitaryType;
 import aircraft.MilitaryPlane;
 import aircraft.PassengerPlane;
@@ -20,49 +21,77 @@ public class Airport {
     }
 
     public List<PassengerPlane> getPassengerPlane() {
-        List<PassengerPlane> passengerPlanes = new ArrayList<>();
-        return passengerPlanes.stream().filter(plane -> plane instanceof PassengerPlane).collect(Collectors.toList());
+        return planes.stream().filter(PassengerPlane.class::isInstance).map(PassengerPlane.class::cast).collect(Collectors.toList());
     }
 
     public List<MilitaryPlane> getMilitaryPlanes() {
-        List<MilitaryPlane> militaryPlanes = new ArrayList<>();
-        return militaryPlanes.stream().filter(plane -> plane instanceof MilitaryPlane).collect(Collectors.toList());
+        return planes.stream().filter(MilitaryPlane.class::isInstance).map(MilitaryPlane.class::cast).collect(Collectors.toList());
+    }
+
+    public List<ExperimentalPlane> getExperimentalPlanes() {
+        return planes.stream().filter(ExperimentalPlane.class::isInstance).map(ExperimentalPlane.class::cast).collect(Collectors.toList());
     }
 
     public PassengerPlane getPassengerPlaneWithMaxPassengersCapacity() {
         List<PassengerPlane> passengerPlanes = getPassengerPlane();
-        List<PassengerPlane> sortedPassengerPlanes = passengerPlanes.stream().sorted(Comparator.comparing
-                (PassengerPlane::getPassengersCapacity)).collect(Collectors.toList());
-        return sortedPassengerPlanes.get(sortedPassengerPlanes.size() - 1);
-
+        return passengerPlanes.stream().max(Comparator.comparing(PassengerPlane::getPassengersCapacity)).get();
     }
 
-    public List<MilitaryPlane> getTransportMilitaryPlanes() {
+    public Plane getPlaneWithMaxSpeed() {
+        return planes.stream().max(Comparator.comparing(Plane::getMaxSpeed)).get();
+    }
+
+    public Plane getPlaneWithModel() {
+        return planes.stream().filter(plane -> plane.getModel().contains("Airbus A330")).collect(Collectors.toList()).get(0);
+    }
+
+    public Plane getPlaneWithMaxFlightDistance() {
+        Optional<Plane> plane = (Optional<Plane>) planes.stream().max(Comparator.comparing(Plane::getMaxFlightDistance));
+        return plane.isPresent() ? plane.get() : planes.get(0);
+    }
+
+    public MilitaryPlane getBomberMilitaryPlanesWithMinSpeed() {
         List<MilitaryPlane> militaryPlanes = getMilitaryPlanes();
-        return militaryPlanes.stream().filter(militaryPlane -> militaryPlane.getType() == MilitaryType.TRANSPORT).collect(Collectors.toList());
+        return militaryPlanes.stream().filter(militaryPlane -> militaryPlane.getType() == MilitaryType.BOMBER).min(Comparator.comparing(Plane::getMaxSpeed)).get();
     }
 
-    public List<MilitaryPlane> getBomberMilitaryPlanes() {
+    public MilitaryPlane getBomberMilitaryPlanesWithMaxSpeed() {
         List<MilitaryPlane> militaryPlanes = getMilitaryPlanes();
-        return militaryPlanes.stream().filter(militaryPlane -> militaryPlane.getType() == MilitaryType.BOMBER).collect(Collectors.toList());
+        return militaryPlanes.stream().filter(militaryPlane -> militaryPlane.getType() == MilitaryType.BOMBER).max(Comparator.comparing(Plane::getMaxSpeed)).get();
     }
 
-    public List<ExperimentalPlane> getExperimentalPlanes() {
-        List<ExperimentalPlane> experimentalPlanes = new ArrayList<>();
-        return experimentalPlanes.stream().filter(plane -> plane instanceof ExperimentalPlane).collect(Collectors.toList());
+    public MilitaryPlane getBomberMilitaryPlanesWithMaxLoadCapacity() {
+        List<MilitaryPlane> militaryPlanes = getMilitaryPlanes();
+        return militaryPlanes.stream().filter(militaryPlane -> militaryPlane.getType() == MilitaryType.BOMBER).max(Comparator.comparing(Plane::getMaxLoadCapacity)).get();
+    }
+
+    public ExperimentalPlane getHighAltitudeMilitaryPlanes() {
+        List<ExperimentalPlane> experimentalPlanes = getExperimentalPlanes();
+        return experimentalPlanes.stream().filter(experimentalPlane -> experimentalPlane.getExperimentalTypes() == ExperimentalTypes.HIGH_ALTITUDE).collect(Collectors.toList()).get(0);
     }
 
     public List<Plane> sortByMaxLoadCapacity() {
         return planes.stream().sorted(Comparator.comparing(Plane::getMaxLoadCapacity)).collect(Collectors.toList());
     }
 
-    public List<? extends Plane> getPlanes() {
-        return planes;
+    public List<Plane> sortByMaxDistance() {
+        return planes.stream().sorted(Comparator.comparing(Plane::getMaxFlightDistance)).collect(Collectors.toList());
+    }
+
+    public List<Plane> sortByMaxSpeed() {
+        return planes.stream().sorted(Comparator.comparing(Plane::getMaxSpeed)).collect(Collectors.toList());
     }
 
     public boolean hasClassificationLevelOfExperimentalPlane() {
         List<ExperimentalPlane> experimentalPlanes = getExperimentalPlanes();
         return experimentalPlanes.stream().allMatch(experimentalPlane -> experimentalPlane.getClassificationLevel() == ClassificationLevel.UNCLASSIFIED);
+    }
+
+    public boolean hasOneBomberPlaneInMilitary() {
+        List<MilitaryPlane> militaryPlanes = getMilitaryPlanes();
+        List<MilitaryPlane> sortedBomberMilitaryPlanes = militaryPlanes.stream().filter(plane ->
+                plane.getType() == MilitaryType.BOMBER).collect(Collectors.toList());
+        return !sortedBomberMilitaryPlanes.isEmpty();
     }
 
     @Override

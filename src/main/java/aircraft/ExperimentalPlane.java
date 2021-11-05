@@ -7,13 +7,13 @@ import java.util.Objects;
 
 public class ExperimentalPlane extends Plane {
 
-    private final ExperimentalTypes type;
+    private ExperimentalTypes experimentalTypes;
     private ClassificationLevel classificationLevel;
 
     public ExperimentalPlane(String model, int maxSpeed, int maxFlightDistance, int maxLoadCapacity,
                              ExperimentalTypes type, ClassificationLevel classificationLevel) {
         super(model, maxSpeed, maxFlightDistance, maxLoadCapacity);
-        this.type = type;
+        this.experimentalTypes = type;
         this.classificationLevel = classificationLevel;
     }
 
@@ -21,24 +21,28 @@ public class ExperimentalPlane extends Plane {
         return classificationLevel;
     }
 
+    public ExperimentalTypes getExperimentalTypes() {
+        return experimentalTypes;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PassengerPlane)) return false;
+        if (!(o instanceof ExperimentalPlane)) return false;
         if (!super.equals(o)) return false;
         ExperimentalPlane experimentalPlane = (ExperimentalPlane) o;
-        return classificationLevel == experimentalPlane.classificationLevel && type == experimentalPlane.type;
+        return classificationLevel == experimentalPlane.classificationLevel && experimentalTypes == experimentalPlane.experimentalTypes;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), type, classificationLevel);
+        return Objects.hash(super.hashCode(), experimentalTypes, classificationLevel);
     }
 
     @Override
     public String toString() {
-        return "experimentalPlane{" +
-                "model='" + "Experimental model" + '\'' +
-                '}';
+        return super.toString().replace("}",
+                ", Experimental type=" + experimentalTypes + ", Classification level=" + classificationLevel +
+                        '}');
     }
 }

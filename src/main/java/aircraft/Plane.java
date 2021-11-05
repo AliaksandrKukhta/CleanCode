@@ -15,6 +15,10 @@ public class Plane {
         this.maxLoadCapacity = maxLoadCapacity;
     }
 
+    public String getModel() {
+        return model;
+    }
+
     public int getMaxSpeed() {
         return maxSpeed;
     }
@@ -24,7 +28,7 @@ public class Plane {
     }
 
     public int getMaxLoadCapacity() {
-        return this.maxLoadCapacity;
+        return maxLoadCapacity;
     }
 
     @Override
